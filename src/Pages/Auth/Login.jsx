@@ -17,8 +17,8 @@ const Login = () => {
 
     const apiUrl =
       loginData.role === "superadmin"
-        ? "http://localhost:5000/api/superadmin/signin"
-        : "http://localhost:5000/api/admin/signin";
+        ? "https://doms-backend.vercel.app/api/superadmin/signin"
+        : "https://doms-backend.vercel.app/api/admin/signin";
 
     try {
       const response = await axios.post(apiUrl, loginData, {
