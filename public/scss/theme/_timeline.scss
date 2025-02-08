@@ -1,0 +1,47 @@
+.timeline {
+  position: relative;
+
+  &::after, &::before  {
+    content: '';
+    position: absolute;
+  }
+
+  &::after {
+    height: 0.625rem;
+    width: 0.625rem;
+    left: $card-spacer-x;
+    top: 1.5625rem;
+    border-radius: 50%;
+    border: 1px solid var(--#{$variable-prefix}border-color);
+  }
+
+  &-current::after {
+    left: 21px;
+  }
+
+  &::before {
+    border-left: 1px dashed;
+    height: calc(100% - 2.11rem);
+    left: calc(#{$card-spacer-x} + 0.28rem);
+    top: 2.4rem;
+    opacity: .48;
+  }
+
+
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      &.timeline-past, &.timeline-current {
+        &::after {
+          background-color: $value;
+          border-color: $value;
+        }
+      }
+
+      &.timeline-current::after {
+        height: 0.5rem;
+        width: 0.5rem;
+        box-shadow: 0 0 0 3px rgba($value, 0.3);
+      }
+    }
+  }
+}

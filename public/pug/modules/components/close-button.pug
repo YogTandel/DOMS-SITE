@@ -1,0 +1,80 @@
+extends ../../layouts/LayoutComponent
+include ../../mixins/components/CloseButton
+include ../../mixins/components/Alerts
+include ../../mixins/components/Modals
+
+append variables
+  
+  -
+    var pageHeader = {
+      title: 'Close button',
+      description: "A generic close button for dismissing content like modals and alerts.",
+      url: `https://getbootstrap.com/docs/${bootstrapVersion}/components/close-button/`,
+      linkText: 'Close Button on Bootstrap'
+    }
+
+block component
+  +PageHeader(pageHeader)
+
+  .row.g-3
+    .col-6
+      .card
+        .card-header
+          +DocCardHeader('Close button')
+              +CloseButtonExampleDescription.mt-2.mb-0
+
+        .card-body.bg-light
+          +ComponentCard
+            .rounded-1.p-3
+              +CloseButtonExample
+    .col-6
+      .card
+        .card-header
+          +DocCardHeader('Close button white variant')
+            +CloseButtonWhiteVarientDescription.mt-2.mb-0
+        .card-body.bg-light
+          +ComponentCard
+            .bg-1000.rounded-1.p-3.light
+              +CloseButtonWhiteVariant
+
+
+
+
+
+
+
+
+
+
+
+  //- .card.mb-3
+  //-   .card-header
+  //-     +DocCardHeader('Example')
+  //-       +CloseButtonExampleDescription.mt-2.mb-0
+
+  //-   .card-body.bg-light
+  //-     +ComponentCard
+  //-       +CloseButtonExample
+  //- .card.mb-3
+  //-   .card-header
+  //-     +DocCardHeader('White variant')
+  //-       +CloseButtonWhiteVarientDescription.mt-2.mb-0
+  //-   .card-body.bg-light
+  //-     +ComponentCard
+  //-       .bg-1000.rounded-1.p-3.light
+  //-         +CloseButtonWhiteVariant
+
+  //- .card.mb-3
+  //-   .card-header
+  //-     +DocCardHeader('Close Button in Alert')
+  //-   .card-body.bg-light
+  //-     +ComponentCard
+  //-       +AlertDismissingDemo
+
+  //- .card.mb-3
+  //-   .card-header
+  //-     +DocCardHeader('Close Button in Modal')
+  //-   .card-body.bg-light
+  //-     +ComponentCard
+  //-       +ModalExampleDemo
+

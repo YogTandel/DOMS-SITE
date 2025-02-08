@@ -1,0 +1,69 @@
+mixin LayoutContentProd
+  div()&attributes(attrsLayout)
+    script.
+      var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+      if(isFluid) {
+        var container = document.querySelector('[data-layout]');
+        container.classList.remove('container');
+        container.classList.add('container-fluid');
+      }
+
+    block wrapperContent
+      block beforeContent
+        block navbarVertical
+
+          +NavbarVertical(style='display: none')
+
+          +NavbarTop({
+            toggleID: 'navbarStandard',
+            links: true,
+            search: false,
+            changelog: true
+          }).navbar-expand-xl(style='display: none')
+
+      .content()&attributes(attrsContent)
+        block navbarTop 
+          +NavbarTop({
+            toggleID: 'navbarVerticalCollapse',
+            links: false,
+            search: true
+          }).navbar-expand(style='display: none')
+
+          +NavbarTop({
+            toggleID: 'navbarVerticalCollapse',
+            navbarCollapseID: 'navbarStandard',
+            links: false,
+            simpleNav: true,
+            search: false,
+            changelog: false
+          }).navbar-expand-lg(style='display: none' data-move-target="#navbarVerticalNav" data-navbar-top="combo")
+
+          script.
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if(navbarPosition === 'top'){
+              navbarTop.removeAttribute('style');
+              navbarTopVertical.remove(navbarTopVertical);
+              navbarVertical.remove(navbarVertical);
+              navbarTopCombo.remove(navbarTopCombo);
+            }else if(navbarPosition === 'combo'){
+              navbarVertical.removeAttribute('style');
+              navbarTopCombo.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopVertical.remove(navbarTopVertical);
+            }else {
+              navbarVertical.removeAttribute('style');
+              navbarTopVertical.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopCombo.remove(navbarTopCombo);
+            }
+
+        block content
+
+        if footer
+          +Footer   
+      block afterContent
+        +AuthenticationModal

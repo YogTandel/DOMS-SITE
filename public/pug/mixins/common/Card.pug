@@ -1,0 +1,129 @@
+//---------------------------------------
+  | Top Navigation Cards
+//---------------------------------------
+mixin CardNotification
+  .card.card-notification.shadow-none&attributes(attributes)
+    .card-header
+      .row.justify-content-between.align-items-center
+        .col-auto
+          h6.card-header-title.mb-0 Notifications
+        .col-auto.ps-0.ps-sm-3
+          a.card-link.fw-normal(href='#') Mark all as read
+    .scrollbar-overlay(style="max-height:19rem")
+      .list-group.list-group-flush.fw-normal.fs--1   
+        .list-group-title.border-bottom NEW
+        .list-group-item
+          +Notification({
+            avatar: {size: '2xl', img: 'team/1-thumb.png'},
+            body: '<strong>Emma Watson</strong> replied to your comment : "Hello world 😍"',
+            time: 'Just now',
+            emoji: '💬',
+          }).notification-flush.notification-unread
+        .list-group-item
+          +Notification({
+            avatar: {size: '2xl', name: 'Albert Brooks'},
+            body: '<strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa\'s</strong> status',
+            time: '9hr',
+            icon: 'fab fa-gratipay text-danger'
+          }).notification-flush.notification-unread
+        .list-group-title.border-bottom EARLIER
+        .list-group-item
+          +Notification({
+            avatar: {size: '2xl', img: 'icons/weather-sm.jpg'},
+            body: 'The forecast today shows a low of 20&#8451; in California. See today\'s weather.',
+            time: '1d',
+            emoji: '🌤️'
+          }).notification-flush
+        .list-group-item
+          +Notification({
+          avatar: {
+            img: 'logos/oxford.png',
+            size: 'xl'
+          },
+          body: '<strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"',
+          time: '1w',
+          emoji: '✌️',
+          className: 'border-bottom-0 notification-unread '
+        }).notification-flush
+        .list-group-item
+          +Notification({
+          avatar: {
+            img: 'team/10.jpg',
+            size: 'xl'
+          },
+          body: '<strong>James Cameron</strong> invited to join the group: United Nations International Children\'s Fund',
+          time: '2d',
+          emoji: '🙋‍',
+          className: 'border-bottom-0'
+        }).notification-flush
+    .card-footer.text-center.border-top
+      a.card-link.d-block(href=`${CWD}${paths['notifications']}`) View all
+
+
+mixin CardUserPreferences
+  .bg-white.dark__bg-1000.rounded-2.py-2&attributes(attributes)
+    = '\n'
+    a(href='#!').dropdown-item.fw-bold.text-warning
+      span.fas.fa-crown.me-1
+      span Go Pro
+    = '\n'
+    .dropdown-divider
+    = '\n'
+    a(href='#!').dropdown-item Set status
+    = '\n'
+    a(href=`${CWD}${paths['user-profile']}`).dropdown-item Profile &amp; account
+    = '\n'
+    a(href='#!').dropdown-item Feedback
+    = '\n'
+    .dropdown-divider
+    = '\n'
+    a(href=`${CWD}${paths['user-settings']}`).dropdown-item Settings
+    = '\n'
+    a(href=`${CWD}${paths['card-logout']}`).dropdown-item Logout
+
+
+mixin Card(config)
+  .card&attributes(attributes)
+    .card-header
+      h5.mb-0(data-anchor=config.anchor)!=config.title
+    .card-body.bg-light
+      block
+
+mixin ComponentCard(config)
+  - var config = Object.assign({ anchor: false,bodyClass:'bg-light' }, config);
+  - var previewId = `dom-${uuid()}`;
+  - var codeId = `dom-${uuid()}`;
+  .card&attributes(attributes)
+    .card-header(class=config.headerClass && config.headerClass)
+      .row.flex-between-end
+        .col-auto.align-self-center
+            if config.title
+              h5.mb-0(data-anchor=config.anchor)=config.title
+            if config.description
+              p.mb-0(class=config.descriptionClass && config.descriptionClass)!=config.description
+            if config.descriptionEl
+              .mt-2(class=config.descriptionClass && config.descriptionClass)!=config.descriptionEl
+            if config.url
+              a(href=config.url target='_blank').btn.btn-link.btn-sm.ps-0.mt-2=config.linkText
+                span.fas.fa-chevron-right.ms-1.fs--2
+
+        .col-auto.ms-auto
+          .nav.nav-pills.nav-pills-falcon.flex-grow-1(role='tablist' class=config.description && 'mt-2')
+            button.btn.btn-sm.active(data-bs-toggle='pill' data-bs-target=`#${previewId}` type='button' role='tab' aria-controls=previewId aria-selected='true' id=`tab-${previewId}`) Preview
+            button.btn.btn-sm(data-bs-toggle='pill' data-bs-target=`#${codeId}` type='button' role='tab' aria-controls=codeId aria-selected='false' id=`tab-${codeId}`) Code
+
+    .card-body(class=config.bodyClass && config.bodyClass)
+      .tab-content
+        .tab-pane.preview-tab-pane.active(role='tabpanel' aria-labelledby=`tab-${previewId}` id=previewId)
+          block
+        .tab-pane.code-tab-pane(role='tabpanel' aria-labelledby=`tab-${codeId}` id=codeId)
+          pre.scrollbar.rounded-1(style="max-height:420px")
+            code.language-html
+              +escape
+                block
+
+mixin ComponentCardLib(lang = 'html')
+  pre.scrollbar.mt-2&attributes(attributes)
+    code(class=`language-${lang}`)
+      +escape
+        block

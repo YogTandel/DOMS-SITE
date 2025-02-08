@@ -1,0 +1,222 @@
+extends ../../layouts/LayoutComponent
+include ../../mixins/home/dashboard-alt/CardRecentPurchaseTable
+include ../../mixins/e-commerce/Customers
+
+block append variables
+  -
+    var rows = [
+      {
+        name: 'Anna',
+        email: 'anna@example.com',
+        age: 18,
+      },
+      {
+        name: 'Homer',
+        email: 'homer@example.com',
+        age: 35,
+      },
+      {
+        name: 'Oscar',
+        email: 'oscar@example.com',
+        age: 52,
+      },
+      {
+        name: 'Emily',
+        email: 'emily@example.com',
+        age: 30,
+      },
+      {
+        name: 'Jara',
+        email: 'jara@example.com',
+        age: 25,
+      },
+      {
+        name: 'Clark',
+        email: 'clark@example.com',
+        age: 39,
+      },
+      {
+        name: 'Jennifer',
+        email: 'jennifer@example.com',
+        age: 52,
+      },
+      {
+        name: 'Tony',
+        email: 'tony@example.com',
+        age: 30,
+      },
+      {
+        name: 'Tom',
+        email: 'tom@example.com',
+        age: 25,
+      },
+      {
+        name: 'Michael',
+        email: 'michael@example.com',
+        age: 39,
+      },
+      {
+        name: 'Antony',
+        email: 'antony@example.com',
+        age: 39,
+      },
+      {
+        name: 'Raymond',
+        email: 'raymond@example.com',
+        age: 52,
+      },
+      {
+        name: 'Marie',
+        email: 'marie@example.com',
+        age: 30,
+      },
+      {
+        name: 'Cohen',
+        email: 'cohen@example.com',
+        age: 25,
+      },
+      {
+        name: 'Rowen',
+        email: 'rowen@example.com',
+        age: 39,
+      },
+    ]
+
+block append content
+
+  +PageHeader({title:'Advance Tables'})
+    p.mt-2 #{name} uses <b>List.Js</b> for advance table. List.Js is a Tiny, invisible and simple, yet powerful and incredibly fast vanilla JavaScript library that adds search, sort, filters and flexibility to plain HTML lists, tables, or anything.
+    a(href='https://listjs.com/' target='_blank').btn.btn-link.ps-0.btn-sm  Documentation for List.js
+      span.fas.fa-chevron-right.ms-1.fs--2
+
+  +ComponentCard({
+    title: 'Table Example',
+    anchor: true,
+    bodyClass:'pt-0',
+  }).mb-3
+    #tableExample(data-list!={
+      valueNames: ['name', 'email', 'age'],
+      page: 5,
+      pagination: true
+    })
+      .table-responsive.scrollbar
+        table.table.table-bordered.table-striped.fs--1.mb-0
+          thead.bg-200.text-900
+            tr
+              th.sort(data-sort="name") Name
+              th.sort(data-sort="email") Email
+              th.sort(data-sort="age") Age
+          tbody.list
+            each row in rows
+              tr
+                td.name=row.name
+                td.email=row.email
+                td.age=row.age
+      .row.align-items-center.mt-3
+        .pagination.d-none
+        .col
+          p.mb-0.fs--1
+            ='\n'
+            span.d-none.d-sm-inline-block(data-list-info)
+            ='\n'
+            span.d-none.d-sm-inline-block  &mdash; 
+            ='\n'
+            a.fw-semi-bold(href='#!' data-list-view="*")
+              | View all
+              span.fas.fa-angle-right.ms-1(data-fa-transform='down-1')
+            a.fw-semi-bold.d-none(href='#!' data-list-view="less")
+              | View Less
+              span.fas.fa-angle-right.ms-1(data-fa-transform='down-1')
+        .col-auto.d-flex
+          button.btn.btn-sm.btn-primary(type='button' data-list-pagination='prev')
+            span Previous
+          button.btn.btn-sm.btn-primary.px-4.ms-2(type='button' data-list-pagination='next')
+            span Next
+  
+  
+  +ComponentCard({
+    title: 'Pagination with numbering',
+    anchor: true,
+    bodyClass:'pt-0',
+    description:'Add <code> pagination </code> class for enable number pagination. The following structure will enable number pagination with next and previous button.',
+    descriptionClass:'mt-2 mb-0',
+  }).mb-3
+    #tableExample2(data-list!={
+      valueNames: ['name', 'email', 'age'],
+      page: 5,
+      pagination: true
+    })
+      .table-responsive.scrollbar
+        table.table.table-bordered.table-striped.fs--1.mb-0
+          thead.bg-200.text-900
+            tr
+              th.sort(data-sort="name") Name
+              th.sort(data-sort="email") Email
+              th.sort(data-sort="age") Age
+          tbody.list 
+            each row in rows
+              tr
+                td.name=row.name
+                td.email=row.email
+                td.age=row.age
+
+      .d-flex.justify-content-center.mt-3
+        button(type='button' title="Previous" data-list-pagination='prev').btn.btn-sm.btn-falcon-default.me-1
+          span.fas.fa-chevron-left
+        ul.pagination.mb-0
+        button(type='button' title="Next" data-list-pagination='next').btn.btn-sm.btn-falcon-default.ms-1
+          span.fas.fa-chevron-right 
+
+
+
+  .card.mb-3
+    .card-header
+      +DocCardHeader('Docs')
+    .card-body.bg-light
+      p Integrate List in #{name} by following these easy steps: 
+      ul
+        li Set unique ID and add 
+          code data-list 
+          | attribute to the wrapper element  and list your column in 
+          code valueNames 
+          | property. 
+          +ComponentCardLib 
+            #tableExample(data-list!={ valueNames: ["name", "email", "age"]})
+              // Your list content will go here
+        li To enable sorting in your column, add 
+          code data-sort 
+          | attribute and assign column name to the attribute. 
+
+          +ComponentCardLib 
+            th.sort(data-sort="name") Customer
+        li Add 
+          code list 
+          | class to the content wrapper element.
+
+          +ComponentCardLib 
+            tbody.list 
+              // Your value will go here
+
+        li Then wrap your value with column name as a class. For example, if your column name is 
+          code name 
+          | then the value will be look like this:
+          +ComponentCardLib 
+            td.name John Doe
+        li To add pagination add 
+          code .pagination 
+          | class inside your wrapper element
+        li To enable  button pagination add 
+          code data-list-pagination='prev' 
+          | and 
+          code data-list-pagination='next' 
+          | to the "Prev" and "Next" buttons respectively.
+        li To see the list info, add 
+          code data-list-info
+          |  attribute to a DOM element inside your wrapper element.
+
+  .card.mb-3
+    .card-header
+      h5.mb-0 Javascript
+    .card-body.bg-light
+      +ComponentCardLib
+        script(src=`vendors/list.js/list.min.js`)

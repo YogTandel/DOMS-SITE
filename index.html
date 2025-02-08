@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Dashboard</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicons/favicon.ico">
+  <link rel="manifest" href="/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="/public/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
+  <script src="/js/config.js"></script>
+  <script src="./vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
+    rel="stylesheet">
+  <link href="./vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+  <link href="/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+  <link href="/css/theme.min.css" rel="stylesheet" id="style-default">
+  <link href="/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+  <link href="/css/user.min.css" rel="stylesheet" id="user-style-default">
+  <script>
+    var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+    if (isRTL) {
+      var linkDefault = document.getElementById('style-default');
+      var userLinkDefault = document.getElementById('user-style-default');
+      linkDefault.setAttribute('disabled', true);
+      userLinkDefault.setAttribute('disabled', true);
+      document.querySelector('html').setAttribute('dir', 'rtl');
+    } else {
+      var linkRTL = document.getElementById('style-rtl');
+      var userLinkRTL = document.getElementById('user-style-rtl');
+      linkRTL.setAttribute('disabled', true);
+      userLinkRTL.setAttribute('disabled', true);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <!-- <script>
+    var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+    if (isFluid) {
+      var container = document.querySelector('[data-layout]');
+      container.classList.remove('container');
+      container.classList.add('container-fluid');
+    }
+  </script>
+
+  <script>
+    var navbarStyle = localStorage.getItem("navbarStyle");
+    if (navbarStyle && navbarStyle !== 'transparent') {
+      document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
+    }
+  </script> -->
+
+  <script src="./vendors/popper/popper.min.js"></script>
+  <script src="./vendors/bootstrap/bootstrap.min.js"></script>
+  <script src="./vendors/anchorjs/anchor.min.js"></script>
+  <script src="./vendors/is/is.min.js"></script>
+  <script src="./vendors/echarts/echarts.min.js"></script>
+  <script src="./vendors/fontawesome/all.min.js"></script>
+  <script src="./vendors/lodash/lodash.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="./vendors/list.js/list.min.js"></script>
+  <script src="/js/theme.js"></script>
+</body>
+
+</html>

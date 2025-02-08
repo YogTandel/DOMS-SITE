@@ -1,0 +1,61 @@
+extends ../../../layouts/LayoutComponent
+include ../../../mixins/common/ComingSoon
+
+block append variables
+  
+  - 
+    var pageHeader = {
+      title: 'Advance Select',
+      description: `${name} uses <b>Choices.js</b> for advance select. Choices.js is a lightweight, configurable select box/text input plugin. Similar to Select2 and Selectize but without the jQuery dependency`,
+      url: `https://github.com/Choices-js/Choices`,
+      linkText: 'Documentation for Choices'
+    }
+
+
+block prepend styles
+  link(href=`${CWD}vendors/choices/choices.min.css`, rel='stylesheet')
+
+block prepend scripts
+  script(src=`${CWD}vendors/choices/choices.min.js`)
+
+
+block append content
+  +PageHeader(pageHeader)
+
+  
+  +ComponentCard({
+    title: 'Multiple Select Example',
+    anchor: true,
+  }).mb-3
+    label(for="organizerMultiple") Multiple
+    select.form-select.js-choice#organizerMultiple(multiple size="1" name="organizerMultiple"  data-options!={removeItemButton: true,placeholder: true})
+      option(value="") Select organizer...
+      option Massachusetts Institute of Technology
+      option University of Chicago
+      option GSAS Open Labs At Harvard
+      option California Institute of Technology
+  
+  +ComponentCard({
+    title: 'Single Select Example',
+    anchor: true,
+  }).mb-3
+    label(for="organizerSingle") Single
+    select.form-select.js-choice#organizerSingle(size="1" name="organizerSingle"  data-options!={removeItemButton: true,placeholder: true})
+      option(value="") Select organizer...
+      option Massachusetts Institute of Technology
+      option University of Chicago
+      option GSAS Open Labs At Harvard
+      option California Institute of Technology 
+      
+  .card.mb-3
+    .card-header
+      h5.mb-0 Javascript
+    .card-body.bg-light   
+      +ComponentCardLib
+        script(src=`vendors/choices/choices.min.js`)
+  .card.mb-3
+    .card-header
+      h5.mb-0 Style
+    .card-body.bg-light   
+      +ComponentCardLib
+        link(href=`vendors/choices/choices.min.css`, rel='stylesheet')
