@@ -50,9 +50,9 @@ function MainPage() {
     let signoutEndpoint = "";
 
     if (role === "admin") {
-      signoutEndpoint = "http://localhost:5000/api/admin/signout";
+      signoutEndpoint = "https://doms-backend.vercel.app/api/admin/signout";
     } else if (role === "superadmin") {
-      signoutEndpoint = "http://localhost:5000/api/superadmin/signout";
+      signoutEndpoint = "https://doms-backend.vercel.app/api/superadmin/signout";
     }
 
     if (signoutEndpoint) {
@@ -119,7 +119,7 @@ function MainPage() {
     }
 
     axios
-      .get("http://localhost:5000/api/auth/verifyToken", {
+      .get("https://doms-backend.vercel.app/api/auth/verifyToken", {
         headers: { Authorization: `Bearer ${token}` }, // ✅ If using JWT authentication
         withCredentials: true, // Only needed if cookies are used too
       })
@@ -147,7 +147,7 @@ function MainPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/admin/admins", {
+      const response = await fetch("https://doms-backend.vercel.app/api/admin/admins", {
         method: "GET",
         credentials: "include", // ✅ Required for session-based authentication
       });
@@ -168,7 +168,7 @@ function MainPage() {
   // ✅ Initial Session Check & Fetch Users
   useEffect(() => {
     axios
-      .get("http://localhost:5000/session", { withCredentials: true })
+      .get("https://doms-backend.vercel.app/session", { withCredentials: true })
       .then((response) => {
         if (response.data.success) {
           console.log("✅ Session Data:", response.data.session);
@@ -228,7 +228,7 @@ function MainPage() {
       // Store password before resetting state
       const tempPassword = newAdmin.password;
 
-      const response = await fetch("http://localhost:5000/api/admin/signup", {
+      const response = await fetch("https://doms-backend.vercel.app/api/admin/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
